@@ -1,6 +1,8 @@
-# 🛒 SuperMarket - Full Stack CRUD Application
+# 🛒 Omri's Market - Full Stack CRUD Application
 
 A modern full-stack supermarket web application built with Flask and React. Users can browse products, manage shopping carts, and complete purchases. Administrators can manage inventory through a dedicated admin panel.
+
+**Created by Omri Shitrit for John Bryce Academy**
 
 ---
 
@@ -98,8 +100,6 @@ omri-project3/
 │   ├── package.json
 │   └── vite.config.js
 │
-├── TODO.md                  # Development roadmap
-├── TESTING.md               # Testing checklist
 └── README.md                # This file
 ```
 
@@ -132,13 +132,20 @@ omri-project3/
    pip install -r requirements.txt
    ```
 
-3. **Initialize database:**
+3. **Set up environment variables:**
    ```bash
-   flask db upgrade
-   python seed.py
+   # Copy the example env file
+   cp .env.example .env
+   # Or on Windows: copy .env.example .env
    ```
 
-4. **Run the server:**
+4. **Initialize database and seed data (REQUIRED):**
+   ```bash
+   python seed.py
+   ```
+   > ⚠️ **Important:** This creates the database with the admin user and sample products. You must run this before starting the server!
+
+5. **Run the server:**
    ```bash
    python run.py
    ```
@@ -271,10 +278,10 @@ Password: admin123
 
 ## 📝 License
 
-This project was created for educational purposes as part of a Full Stack Development course.
+This project was created for educational purposes as part of a Full Stack Development course at John Bryce Academy.
 
 ---
 
 ## 👤 Author
 
-Student Project - 2026
+Omri Shitrit | omri.shitrit@yahoo.com

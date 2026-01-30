@@ -59,10 +59,9 @@ const Home = () => {
     setSearchTerm('');
     
     try {
-      // Only show skeleton if we have no products yet (initial load)
-      if (products.length === 0) {
-        setLoading(true);
-      }
+      // FIX: Removed the "if (products.length === 0) setLoading(true)" 
+      // This was causing flicker when switching away from empty departments (Frozen Foods)
+      
       const res = await productApi.getProducts(newDeptId);
       setProducts(res.data);
       
@@ -159,7 +158,8 @@ const Home = () => {
                 {dept.name === 'Dairy' ? '🥛' : 
                  dept.name === 'Meats' ? '🥩' : 
                  dept.name === 'Fruits & Vegs' ? '🥗' : 
-                 dept.name === 'Bakery' ? '🥐' : '📦'}
+                 dept.name === 'Bakery' ? '🥐' : 
+                 dept.name === 'Frozen Foods' ? '🧊' : '📦'}
               </div>
               <h3 className="font-bold whitespace-nowrap">{dept.name}</h3>
             </button>

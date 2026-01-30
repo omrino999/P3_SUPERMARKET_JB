@@ -87,7 +87,7 @@ omri-project3/
 │   ├── run.py               # Entry point
 │   ├── seed.py              # Database seeder
 │   ├── requirements.txt     # Python dependencies
-│   └── .env                 # Environment variables
+│   └── Dockerfile           # Backend container
 │
 ├── frontend/
 │   ├── src/
@@ -98,8 +98,10 @@ omri-project3/
 │   │   ├── App.jsx          # Root component
 │   │   └── main.jsx         # Entry point
 │   ├── package.json
+│   ├── Dockerfile           # Frontend container
 │   └── vite.config.js
 │
+├── docker-compose.yml       # Run all services
 └── README.md                # This file
 ```
 
@@ -159,6 +161,18 @@ omri-project3/
    npm run dev
    ```
    Frontend will be available at `http://localhost:5173`
+
+### Docker Setup (Alternative)
+
+Run the entire application with one command:
+
+```bash
+docker-compose up --build
+```
+
+This will start:
+- Backend at `http://localhost:5000`
+- Frontend at `http://localhost:5173`
 
 ---
 

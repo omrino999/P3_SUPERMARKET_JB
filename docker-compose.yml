@@ -1,0 +1,30 @@
+# Docker Compose for Omri's Market
+# Run with: docker-compose up --build
+
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    container_name: omri-market-backend
+    ports:
+      - "5000:5000"
+    environment:
+      - SECRET_KEY=docker-secret-key
+      - JWT_SECRET_KEY=docker-jwt-key
+      - DATABASE_URL=sqlite:///supermarket.db
+    volumes:
+      - backend-data:/app/instance
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    container_name: omri-market-frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  backend-data:

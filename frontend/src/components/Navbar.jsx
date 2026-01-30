@@ -115,7 +115,7 @@ const Navbar = () => {
             {/* Cart Hover Preview - pt-2 creates visual gap while maintaining hover area */}
             {showCartPreview && (
               <div className="absolute right-0 top-full pt-2 z-50">
-                <div className="w-80 max-h-96 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-700 overflow-hidden">
+                <div className="w-80 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-700 overflow-hidden">
                 <div className="p-4 border-b border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50">
                   <h3 className="font-bold text-gray-800 dark:text-gray-100">Your Cart ({cartCount})</h3>
                 </div>

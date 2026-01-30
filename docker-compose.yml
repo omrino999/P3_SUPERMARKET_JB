@@ -13,6 +13,8 @@ services:
       - SECRET_KEY=docker-secret-key
       - JWT_SECRET_KEY=docker-jwt-key
       - DATABASE_URL=sqlite:///supermarket.db
+      - FLASK_HOST=0.0.0.0
+      - FLASK_DEBUG=0
     volumes:
       - backend-data:/app/instance
     restart: unless-stopped
@@ -22,6 +24,8 @@ services:
     container_name: omri-market-frontend
     ports:
       - "5173:5173"
+    environment:
+      - VITE_API_URL=http://localhost:5000
     depends_on:
       - backend
     restart: unless-stopped

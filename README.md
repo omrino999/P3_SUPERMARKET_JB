@@ -49,7 +49,6 @@ A modern full-stack supermarket web application built with Flask and React. User
 | Python 3.x | Programming Language |
 | Flask | Web Framework |
 | SQLAlchemy | ORM |
-| Flask-Migrate | Database Migrations |
 | Flask-JWT-Extended | Authentication |
 | Flask-CORS | Cross-Origin Requests |
 | SQLite | Database |

@@ -51,13 +51,27 @@ const Home = () => {
   const handleDeptSelect = async (deptId) => {
     // Toggle: clicking same department again shows all products
     const newDeptId = selectedDept === deptId ? null : deptId;
+    
+    // Capture scroll position RIGHT NOW (before any state changes)
+    const currentScrollY = window.scrollY;
+    
     setSelectedDept(newDeptId);
     setSearchTerm('');
+    
     try {
-      setLoading(true);
+      // Only show skeleton if we have no products yet (initial load)
+      if (products.length === 0) {
+        setLoading(true);
+      }
       const res = await productApi.getProducts(newDeptId);
       setProducts(res.data);
-      // filteredProducts will update via useEffect
+      
+      // After products update, restore scroll position if page is tall enough
+      requestAnimationFrame(() => {
+        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        const targetScroll = Math.min(currentScrollY, Math.max(0, maxScroll));
+        window.scrollTo(0, targetScroll);
+      });
     } catch (err) {
       console.error('Failed to fetch products', err);
     } finally {
@@ -123,9 +137,10 @@ const Home = () => {
           </div>
           <button 
             onClick={() => handleDeptSelect(null)}
-            className={`text-sm font-bold px-4 py-2 rounded-lg transition-all ${!selectedDept ? 'bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-300' : 'text-gray-500 dark:text-gray-400 hover:text-green-600 dark:hover:text-green-400'}`}
+            disabled={!selectedDept}
+            className={`text-sm font-bold px-4 py-2 rounded-lg transition-all ${selectedDept ? 'bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-300 hover:bg-green-200 dark:hover:bg-green-800/50' : 'text-gray-400 dark:text-gray-500 cursor-default'}`}
           >
-            Show All
+            {selectedDept ? 'Show All' : 'Showing All'}
           </button>
         </div>
         

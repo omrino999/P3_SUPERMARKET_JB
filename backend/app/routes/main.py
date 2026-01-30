@@ -22,7 +22,7 @@ def get_products():
         products = Product.query.filter_by(department_id=dept_id).all()
     else:
         products = Product.query.all()
-        
+    
     return jsonify([{
         "id": p.id,
         "name": p.name,

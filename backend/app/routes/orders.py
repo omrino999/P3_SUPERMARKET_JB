@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
+from sqlalchemy.orm import joinedload
 from app.models import CartItem, Purchase, PurchaseItem
 from app.extensions import db
 
@@ -9,7 +10,8 @@ bp = Blueprint('orders', __name__, url_prefix='/orders')
 @jwt_required()
 def checkout():
     user_id = get_jwt_identity()
-    cart_items = CartItem.query.filter_by(user_id=user_id).all()
+    # Eager load products to avoid N+1
+    cart_items = CartItem.query.filter_by(user_id=user_id).options(joinedload(CartItem.product)).all()
     
     if not cart_items:
         return jsonify(message="Cart is empty"), 400
@@ -47,7 +49,8 @@ def checkout():
 @jwt_required()
 def get_history():
     user_id = get_jwt_identity()
-    purchases = Purchase.query.filter_by(user_id=user_id).order_by(Purchase.timestamp.desc()).all()
+    # Eager load items to avoid N+1 when counting
+    purchases = Purchase.query.filter_by(user_id=user_id).options(joinedload(Purchase.items)).order_by(Purchase.timestamp.desc()).all()
     
     return jsonify([{
         "id": p.id,
@@ -61,7 +64,10 @@ def get_history():
 @jwt_required()
 def get_order_details(code):
     user_id = get_jwt_identity()
-    purchase = Purchase.query.filter_by(unique_code=code).first_or_404()
+    # Eager load items and their products
+    purchase = Purchase.query.filter_by(unique_code=code).options(
+        joinedload(Purchase.items).joinedload(PurchaseItem.product)
+    ).first_or_404()
     
     if str(purchase.user_id) != str(user_id):
         return jsonify(message="Unauthorized"), 403

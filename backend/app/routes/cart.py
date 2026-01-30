@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
+from sqlalchemy.orm import joinedload
 from app.models import CartItem, Product
 from app.extensions import db
 
@@ -9,7 +10,8 @@ bp = Blueprint('cart', __name__, url_prefix='/cart')
 @jwt_required()
 def get_cart():
     user_id = get_jwt_identity()
-    items = CartItem.query.filter_by(user_id=user_id).all()
+    # Use joinedload to fetch products in ONE query (fixes N+1 problem)
+    items = CartItem.query.filter_by(user_id=user_id).options(joinedload(CartItem.product)).all()
     
     return jsonify([{
         "id": item.id,

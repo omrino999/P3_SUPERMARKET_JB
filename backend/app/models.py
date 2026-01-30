@@ -42,7 +42,7 @@ class Product(db.Model):
     name = db.Column(db.String(100), nullable=False)
     price = db.Column(db.Float, nullable=False)
     image_url = db.Column(db.String(500), nullable=True)
-    department_id = db.Column(db.Integer, db.ForeignKey('departments.id'), nullable=False)
+    department_id = db.Column(db.Integer, db.ForeignKey('departments.id'), nullable=False, index=True)
 
     cart_items = db.relationship('CartItem', backref='product', lazy=True)
     purchase_items = db.relationship('PurchaseItem', backref='product', lazy=True)
@@ -53,8 +53,8 @@ class Product(db.Model):
 class CartItem(db.Model):
     __tablename__ = 'cart_items'
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    product_id = db.Column(db.Integer, db.ForeignKey('products.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False, index=True)
+    product_id = db.Column(db.Integer, db.ForeignKey('products.id'), nullable=False, index=True)
     quantity = db.Column(db.Integer, default=1, nullable=False)
 
     def __repr__(self):
@@ -63,7 +63,7 @@ class CartItem(db.Model):
 class Purchase(db.Model):
     __tablename__ = 'purchases'
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False, index=True)
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
     unique_code = db.Column(db.String(36), unique=True, default=lambda: str(uuid.uuid4()))
     total_price = db.Column(db.Float, nullable=False)
@@ -76,8 +76,8 @@ class Purchase(db.Model):
 class PurchaseItem(db.Model):
     __tablename__ = 'purchase_items'
     id = db.Column(db.Integer, primary_key=True)
-    purchase_id = db.Column(db.Integer, db.ForeignKey('purchases.id'), nullable=False)
-    product_id = db.Column(db.Integer, db.ForeignKey('products.id'), nullable=False)
+    purchase_id = db.Column(db.Integer, db.ForeignKey('purchases.id'), nullable=False, index=True)
+    product_id = db.Column(db.Integer, db.ForeignKey('products.id'), nullable=False, index=True)
     quantity = db.Column(db.Integer, nullable=False)
     price_at_purchase = db.Column(db.Float, nullable=False)
 

@@ -1,6 +1,6 @@
 from flask import Flask
 from config import Config
-from app.extensions import db, migrate, cors, jwt
+from app.extensions import db, cors, jwt
 
 def create_app(config_class=Config):
     app = Flask(__name__)
@@ -8,7 +8,6 @@ def create_app(config_class=Config):
 
     # Initialize extensions
     db.init_app(app)
-    migrate.init_app(app, db)
     cors.init_app(app)
     jwt.init_app(app)
 

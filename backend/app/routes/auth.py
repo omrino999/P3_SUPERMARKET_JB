@@ -18,10 +18,6 @@ def register():
     user = User(email=data['email'])
     user.set_password(data['password'])
     
-    # Check if this should be an admin (could be based on email or a secret flag for testing)
-    if data.get('make_admin'):
-        user.is_admin = True
-        
     db.session.add(user)
     db.session.commit()
     

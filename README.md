@@ -144,7 +144,7 @@ omri-project3/
    ```bash
    python seed.py
    ```
-   > ⚠️ **Important:** This creates the database tables, admin user, and sample products. You must run this before starting the server!
+   > ⚠️ **Important:** This creates the database tables, admin user, departments, and sample products with placeholder image URLs (Unsplash). You must run this before starting the server!
    >
    > **Admin login:** `admin@test.com` / `admin123`
 

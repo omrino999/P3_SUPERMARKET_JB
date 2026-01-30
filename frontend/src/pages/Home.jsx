@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { productApi, cartApi } from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
-import { ShoppingCart, Plus, Minus, Search, Filter } from 'lucide-react';
+import { ShoppingCart, Plus, Search, Check } from 'lucide-react';
 
 const Home = () => {
   const [departments, setDepartments] = useState([]);
@@ -12,6 +12,8 @@ const Home = () => {
   const [selectedDept, setSelectedDept] = useState(null);
   const [loading, setLoading] = useState(true);
   const [cartLoading, setCartLoading] = useState({});
+  const [addedToasts, setAddedToasts] = useState([]);
+  const addedToastTimeoutsRef = useRef([]);
   const { user } = useAuth();
   const { refreshCartCount } = useCart();
   const shopSectionRef = useRef(null);
@@ -88,13 +90,26 @@ const Home = () => {
     try {
       await cartApi.addToCart(productId, 1);
       refreshCartCount();
-      // Success - maybe show a toast
+      // One toast per add – multiple toasts can stack
+      const id = Date.now();
+      setAddedToasts(prev => [...prev, id]);
+      const timeoutId = setTimeout(() => {
+        setAddedToasts(prev => prev.filter(t => t !== id));
+      }, 2500);
+      addedToastTimeoutsRef.current.push(timeoutId);
     } catch (err) {
       console.error('Failed to add to cart', err);
     } finally {
       setCartLoading(prev => ({ ...prev, [productId]: false }));
     }
   };
+
+  useEffect(() => {
+    return () => {
+      addedToastTimeoutsRef.current.forEach(clearTimeout);
+      addedToastTimeoutsRef.current = [];
+    };
+  }, []);
 
   if (loading && products.length === 0) {
     return <div className="text-center py-20 text-gray-500 font-medium">Loading your supermarket...</div>;
@@ -242,6 +257,23 @@ const Home = () => {
           </div>
         )}
       </section>
+
+      {/* Added to cart toasts – one per add, stack upward */}
+      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex flex-col-reverse gap-2 pointer-events-none">
+        {addedToasts.map((id) => (
+          <div
+            key={id}
+            className="flex items-center gap-2 px-4 py-3 rounded-xl border shadow-lg bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-600 text-gray-800 dark:text-gray-100 pointer-events-auto"
+            role="status"
+            aria-live="polite"
+          >
+            <div className="flex-shrink-0 w-8 h-8 rounded-full bg-green-100 dark:bg-green-900/50 flex items-center justify-center">
+              <Check size={18} className="text-green-600 dark:text-green-400" strokeWidth={2.5} />
+            </div>
+            <span className="font-medium text-sm">Added to cart</span>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

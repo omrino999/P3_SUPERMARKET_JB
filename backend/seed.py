@@ -32,18 +32,20 @@ def seed_data():
         
         db.session.commit() # Commit to get IDs
 
-        # 3. Create Sample Products
+        # 3. Create Sample Products (real images via Unsplash)
         sample_products = [
-            ('Milk', 4.99, 'Dairy', 'https://placehold.co/400x400?text=Milk'),
-            ('Cheese', 7.50, 'Dairy', 'https://placehold.co/400x400?text=Cheese'),
-            ('Yogurt', 3.20, 'Dairy', 'https://placehold.co/400x400?text=Yogurt'),
-            ('Beef Steak', 15.99, 'Meats', 'https://placehold.co/400x400?text=Beef+Steak'),
-            ('Chicken Breast', 9.50, 'Meats', 'https://placehold.co/400x400?text=Chicken+Breast'),
-            ('Apple', 0.99, 'Fruits & Vegs', 'https://placehold.co/400x400?text=Apple'),
-            ('Banana', 0.50, 'Fruits & Vegs', 'https://placehold.co/400x400?text=Banana'),
-            ('Tomato', 1.20, 'Fruits & Vegs', 'https://placehold.co/400x400?text=Tomato'),
-            ('Bread', 2.99, 'Bakery', 'https://placehold.co/400x400?text=Bread'),
-            ('Croissant', 1.50, 'Bakery', 'https://placehold.co/400x400?text=Croissant'),
+            ('Milk', 4.99, 'Dairy', 'https://images.unsplash.com/photo-1563636619-e9143da7973b?w=400&h=400&fit=crop'),
+            ('Cheese', 7.50, 'Dairy', 'https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?w=400&h=400&fit=crop'),
+            ('Yogurt', 3.20, 'Dairy', 'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=400&h=400&fit=crop'),
+            ('Beef Steak', 15.99, 'Meats', 'https://images.unsplash.com/photo-1603048297172-c92544798d5a?w=400&h=400&fit=crop'),
+            ('Chicken Breast', 9.50, 'Meats', 'https://images.unsplash.com/photo-1604503468506-a8da13d82791?w=400&h=400&fit=crop'),
+            ('Apple', 0.99, 'Fruits & Vegs', 'https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=400&h=400&fit=crop'),
+            ('Banana', 0.50, 'Fruits & Vegs', 'https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=400&h=400&fit=crop'),
+            ('Tomato', 1.20, 'Fruits & Vegs', 'https://images.unsplash.com/photo-1546470427-227c7369a9b8?w=400&h=400&fit=crop'),
+            ('Bread', 2.99, 'Bakery', 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400&h=400&fit=crop'),
+            ('Croissant', 1.50, 'Bakery', 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=400&h=400&fit=crop'),
+            ('Ice Cream', 5.99, 'Frozen Foods', 'https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?w=400&h=400&fit=crop'),
+            ('Frozen Pizza', 6.50, 'Frozen Foods', 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&h=400&fit=crop'),
         ]
 
         for name, price, dept_name, img in sample_products:

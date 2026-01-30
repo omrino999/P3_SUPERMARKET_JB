@@ -132,20 +132,15 @@ omri-project3/
    pip install -r requirements.txt
    ```
 
-3. **Set up environment variables:**
-   ```bash
-   # Copy the example env file
-   cp .env.example .env
-   # Or on Windows: copy .env.example .env
-   ```
-
-4. **Initialize database and seed data (REQUIRED):**
+3. **Initialize database and seed data (REQUIRED):**
    ```bash
    python seed.py
    ```
-   > ⚠️ **Important:** This creates the database with the admin user and sample products. You must run this before starting the server!
+   > ⚠️ **Important:** This creates the database tables, admin user, and sample products. You must run this before starting the server!
+   >
+   > **Admin login:** `admin@test.com` / `admin123`
 
-5. **Run the server:**
+4. **Run the server:**
    ```bash
    python run.py
    ```

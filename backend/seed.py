@@ -5,6 +5,10 @@ from app.models import User, Department, Product
 def seed_data():
     app = create_app()
     with app.app_context():
+        # Create all tables (if they don't exist)
+        db.create_all()
+        print("Database tables created/verified.")
+        
         # 1. Create Admin
         admin = User.query.filter_by(email='admin@test.com').first()
         if not admin:

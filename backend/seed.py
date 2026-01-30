@@ -41,7 +41,7 @@ def seed_data():
             ('Chicken Breast', 9.50, 'Meats', 'https://images.unsplash.com/photo-1604503468506-a8da13d82791?w=400&h=400&fit=crop'),
             ('Apple', 0.99, 'Fruits & Vegs', 'https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=400&h=400&fit=crop'),
             ('Banana', 0.50, 'Fruits & Vegs', 'https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=400&h=400&fit=crop'),
-            ('Tomato', 1.20, 'Fruits & Vegs', 'https://images.unsplash.com/photo-1546470427-227c7369a9b8?w=400&h=400&fit=crop'),
+            ('Tomato', 1.20, 'Fruits & Vegs', 'https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=400&h=400&fit=crop'),
             ('Bread', 2.99, 'Bakery', 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400&h=400&fit=crop'),
             ('Croissant', 1.50, 'Bakery', 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=400&h=400&fit=crop'),
             ('Ice Cream', 5.99, 'Frozen Foods', 'https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?w=400&h=400&fit=crop'),

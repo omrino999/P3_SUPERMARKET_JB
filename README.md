@@ -14,6 +14,7 @@ A modern full-stack supermarket web application built with Flask and React. User
 - [Getting Started](#-getting-started)
 - [API Endpoints](#-api-endpoints)
 - [Default Credentials](#-default-credentials)
+- [Environment Variables](#-environment-variables)
 - [Database Schema](#-database-schema)
 
 ---
@@ -133,7 +134,13 @@ omri-project3/
    pip install -r requirements.txt
    ```
 
-3. **Initialize database and seed data (REQUIRED):**
+3. **Create environment file (required for config & secrets):**
+   ```bash
+   cp .env.example .env
+   ```
+   Edit `.env` if needed. For local dev the defaults are fine; see [Environment variables](#environment-variables) below.
+
+4. **Initialize database and seed data (REQUIRED):**
    ```bash
    python seed.py
    ```
@@ -141,7 +148,7 @@ omri-project3/
    >
    > **Admin login:** `admin@test.com` / `admin123`
 
-4. **Run the server:**
+5. **Run the server:**
    ```bash
    python run.py
    ```
@@ -228,6 +235,21 @@ This will start:
 Email: admin@test.com
 Password: admin123
 ```
+
+---
+
+## 🔧 Environment Variables
+
+The backend uses a `.env` file (never committed; see `.env.example`). Copy `.env.example` to `.env` and adjust if needed.
+
+| Variable | Purpose |
+|----------|---------|
+| `SECRET_KEY` | Flask signing key (sessions, flash messages). Must be secret in production. |
+| `JWT_SECRET_KEY` | Key used to sign/verify login tokens. If leaked, someone could forge JWTs. |
+| `DATABASE_URL` | Database connection (e.g. `sqlite:///supermarket.db`). For production, use a strong DB password here. |
+| `FLASK_APP`, `FLASK_DEBUG` | How Flask runs; `FLASK_HOST` optional (e.g. `0.0.0.0` for Docker). |
+
+Use different values per environment (dev vs production) and keep `.env` out of version control.
 
 ---
 
